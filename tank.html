@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="js/jquery-2.2.2.min.js"></script>
+    <title></title>
+    <script type="text/javascript">
+        var EnemeyTankColor = new Array("#61D2F1", "#8A4A6E");
+        var MyTankColor = new Array("green", "blue");
+        var tank = null;
+
+
+        function Tank(x,y,dir,color){
+            this.x = x;
+            this.y = y;
+            this.dir = dir;           //0代表向上 1代表向右   2代表向下   3代表向左
+            this.speed = 5;
+            this.color = color;
+            this.MoveUp = function () {
+                this.y -= this.speed;
+                this.dir = 0;
+                //DrawTank(this);
+            };
+            this.MoveRight = function () {
+                this.x += this.speed;
+                this.dir = 1;
+                //DrawTank(this);
+            };
+
+            this.MoveDown = function () {
+                this.y += this.speed;
+                this.dir = 2;
+                //DrawTank(this);
+            };
+
+            this.MoveLeft = function () {
+                this.x -= this.speed;
+                this.dir = 3;
+                //DrawTank(this);
+            };
+            //alert(this.dir);
+            this.bullet = new Array(new Bullet(this.x, this.y, this.dir));
+        }
+
+        function MyTank(x, y, dir,color) {
+            this.tank = Tank;
+            this.tank(x,y,dir,color);
+        }
+
+        function EnemeyTank(x,y,dir,color)
+        {
+            this.tank = Tank;
+            this.tank(x, y, dir,color);
+        }
+
+        function Bullet(x,y,dir)
+        {
+            var bullet = new Object;
+            bullet.x = x;
+            bullet.y = y;
+            bullet.dir = dir;
+            bullet.isLive = true;
+            bullet.timer = null;
+            bullet.drawBullet = function () {
+                if (bullet.isLive == true)
+                {
+                    var canvas = document.getElementById("cantank");
+                    var ctx = canvas.getContext("2d");
+                    ctx.fillStyle = "red";
+                    //ctx.clearRect(bullet.x,bullet.y,3,3);
+                    switch (bullet.dir) {
+                        case 0: ctx.fillRect(bullet.x, bullet.y - 35, 3, 3); break;
+                        case 1: ctx.fillRect(bullet.x + 35, bullet.y, 3, 3); break;
+                        case 2: ctx.fillRect(bullet.x, bullet.y + 35, 3, 3); break;
+                        case 3: ctx.fillRect(bullet.x - 35, bullet.y, 3, 3); break;
+                    }
+                }
+            }
+
+            bullet.run = function () {
+                //alert("run");
+
+
+                if (bullet.x < 35 || bullet.x > 600 || bullet.y < 35 || bullet.y > 600)
+                {
+                    //clearInterval(bullet.timer);
+                    //bullet.x = tank.x;
+                    //bullet.y = tank.y;
+                    //bullet.dir = tank.dir;
+                    bullet.isLive = false;
+                } else {
+                    switch (bullet.dir) {
+                        case 0: bullet.y=bullet.y-2; break;
+                        case 1: bullet.x=bullet.x+2; break;
+                        case 2: bullet.y=bullet.y+2; break;
+                        case 3: bullet.x=bullet.x-2; break;
+                    }
+                }
+
+                $("#span1").html("x="+bullet.x+"  "+"y="+bullet.y);
+            }
+            return bullet;
+        }
+
+        //画出坦克对象
+        function DrawTank(tank) {
+            var canTank = document.getElementById("cantank");
+            var ctx = canTank.getContext("2d");
+            var dir = tank.dir;
+            switch(dir){
+                case 0:
+                case 2:
+
+                    //画出坦克的左边的轮子
+                    ctx.fillStyle = tank.color[0];
+                    ctx.fillRect(tank.x-25, tank.y-25, 10, 50);
+
+                    //画出坦克的中间的机箱
+                    ctx.fillRect(tank.x -15, tank.y - 15, 30, 30);
+
+                    //画出坦克的右边的轮子
+                    ctx.fillRect(tank.x + 15, tank.y-25, 10, 50);
+                    ctx.fillStyle = tank.color[1];
+
+                    //画出坦克的盖子
+                    ctx.beginPath();
+                    ctx.arc(tank.x, tank.y, 15, 0, 360, false);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.closePath();
+
+                    //画出坦克的炮筒
+                    ctx.beginPath();
+                    ctx.moveTo(tank.x, tank.y);
+                    if (tank.dir == 0)
+                    {
+                        ctx.lineTo(tank.x, tank.y-30);
+                    }
+                    else if (tank.dir == 2)
+                    {
+                        ctx.lineTo(tank.x,tank.y+30);
+                    }
+                    ctx.closePath();
+                    ctx.lineWidth = "2";
+                    ctx.strokeStyle = "yellow";
+                    ctx.stroke();
+                    break;
+                case 1:
+                case 3:
+                    //画出坦克的上边的轮子
+                    ctx.fillStyle = tank.color[0];
+                    ctx.fillRect(tank.x-25, tank.y-25, 50, 10);
+
+                    //画出坦克的中间的机箱
+                    ctx.fillRect(tank.x -15, tank.y - 15, 30, 30);
+
+                    //画出坦克的下边的轮子
+                    ctx.fillRect(tank.x - 25, tank.y+15, 50, 10);
+                    ctx.fillStyle = tank.color[1];
+
+                    //画出坦克的盖子
+                    ctx.beginPath();
+                    ctx.arc(tank.x, tank.y, 15, 0, 360, false);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.closePath();
+
+                    //画出坦克的炮筒
+                    ctx.beginPath();
+                    ctx.moveTo(tank.x, tank.y);
+                    if (tank.dir == 1) {
+                        ctx.lineTo(tank.x + 30, tank.y );
+                    }
+                    else if (tank.dir == 3) {
+                        ctx.lineTo(tank.x -30, tank.y );
+                    }
+                    ctx.closePath();
+                    ctx.lineWidth = "2";
+                    ctx.strokeStyle = "yellow";
+                    ctx.stroke();
+                    break;
+            }
+
+        };
+
+        //刷新坦克和子弹的位置
+        function Refresh(mytank, enemeytanks) {
+            DrawTank(mytank);
+            //if (mytank.bullet.isLive == true)
+            //{
+            //    mytank.bullet.drawBullet();
+            //}
+
+            for (var i = 0; i < mytank.bullet.length; i++)
+            {
+                mytank.bullet[i].drawBullet();
+            }
+            for(var i=0;i<3;i++)
+            {
+                DrawTank(enemeytanks[i]);
+
+                //for (var i = 0; i < enemeytanks[i].bullet.length; i++) {
+                //    enemeytanks[i].bullet[i].drawBullet();
+                //}
+            }
+        }
+
+        //画出静态的坦克
+        //注意要使用相对位置，即相对坦克的左上角的位置的变化，这样之后才能使坦克动起来
+        $(function () {
+
+            //先得到canvas对象和画笔对象
+            var canvas = document.getElementById("cantank");
+            var ctx = canvas.getContext("2d");
+
+            //新建自己的坦克
+            var X = 30;
+            var Y = 30;
+            tank = new MyTank(500,500,0,MyTankColor);
+            //新建敌人的坦克
+            var EnemeyTanks = new Array();
+            for (var i = 0; i < 3; i++)
+            {
+                var enemeyTank = new EnemeyTank((i + 1) * 80, 80, 2, EnemeyTankColor);
+                EnemeyTanks[i] = enemeyTank;
+            }
+            //当页面加载完成的时候先画出坦克
+            Refresh(tank, EnemeyTanks);
+
+            $("body").keydown(function (event) {
+                var key = event.keyCode;
+                switch (key) {
+                    case 87: tank.MoveUp(); break;
+                    case 68: tank.MoveRight(); break;
+                    case 83: tank.MoveDown();break;
+                    case 65: tank.MoveLeft(); break;
+                }
+
+                ctx.clearRect(0, 0, 600, 600);
+
+                Refresh(tank, EnemeyTanks);
+            });
+
+
+            //for (var i = 0; i < EnemeyTanks.length; i++)
+            //{
+            //    //定时产生新的子弹
+            //    setInterval(function () {
+            //        EnemeyTanks[i].bullet[EnemeyTanks[i].bullet.length] = new Bullet(EnemeyTanks[i].x, EnemeyTanks[i].y, EnemeyTanks[i].dir);
+            //        Refresh(tank, EnemeyTanks);
+            //    }, 500);
+
+            //    //定时改变子弹的位置
+            //    setInterval(function () {
+            //        for (var i = 0; i < EnemeyTanks[i].bullet.length; i++) {
+            //            EnemeyTanks[i].bullet[i].run();
+            //            ctx.clearRect(0, 0, 600, 600);
+            //            Refresh(tank, EnemeyTanks);
+            //        }
+            //    }, 10);
+            //}
+
+
+            //定时产生新的子弹
+            setInterval(function () {
+                EnemeyTanks[0].bullet[EnemeyTanks[0].bullet.length] = new Bullet(EnemeyTanks[0].x, EnemeyTanks[0].y, EnemeyTanks[0].dir);
+                Refresh(tank, EnemeyTanks);
+            }, 500);
+
+            //定时改变子弹的位置
+            setInterval(function () {
+                for (var i = 0; i < EnemeyTanks[i].bullet.length; i++) {
+                    EnemeyTanks[0].bullet[i].run();
+                    ctx.clearRect(0, 0, 600, 600);
+                    Refresh(tank, EnemeyTanks);
+                }
+            }, 10);
+
+
+
+
+
+            //定时产生新的子弹
+            setInterval(function () {
+                tank.bullet[tank.bullet.length] = new Bullet(tank.x, tank.y, tank.dir);
+                Refresh(tank, EnemeyTanks);
+            }, 500);
+
+            //定时改变子弹的位置
+            setInterval(function () {
+                for (var i = 0; i < tank.bullet.length; i++)
+                {
+                    tank.bullet[i].run();
+                    ctx.clearRect(0, 0, 600, 600);
+                    Refresh(tank, EnemeyTanks);
+                }
+            }, 10);
+
+
+
+            //for (var i = 0; i < tank.bullet.length; i++)
+            //{
+            //    setInterval(function () {
+            //        tank.bullet[0].run();
+            //        ctx.clearRect(0, 0, 600, 600);
+            //        Refresh(tank, EnemeyTanks);
+            //    }, 50);
+            //}
+
+
+
+            //setInterval(tank.bullet.drawBullet, 100);
+        });
+    </script>
+</head>
+<body>
+<canvas id="cantank" width="600" height="600" style="background-color:black"></canvas>
+<span id="span1"></span>
+</body>
+</html>

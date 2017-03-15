@@ -6,10 +6,18 @@
     "height": 45
   },
   "enTankBody":{
-    "x": 655,
-    "y": 0,
-    "width" : 40,
-    "height" : 45
+    "right" : {
+      "x": 655,
+      "y": 0,
+      "width" : 40,
+      "height" : 45
+    },
+    "left" :{
+      "x": 5,
+      "y": 0,
+      "width" : 40,
+      "height" : 45
+    }
   },
   "difficulty" : {
     "easy" : 0,
@@ -19,6 +27,6 @@
     "left":0,
     "right":1
   },
-  "tankType":0
+  "tankType":1
 }
 

@@ -2,10 +2,10 @@
  * Created by clam on 17-3-14.
  */
 window.onload = function () {
+
+    getTankData();
     var mapPanel = document.getElementById('map');
     var ctx = mapPanel.getContext("2d");
-    loadMap(ctx,difficulty.easy);
-    drawTank(ctx);
 };
 // 加载坦克
 function loadTank(ctx,number) {
@@ -14,7 +14,7 @@ function loadTank(ctx,number) {
 }
 
 // 画出坦克
-function drawTank(ctx,tankType,myTankData,enTanksData) {
+function drawTank(ctx,tankType,myTankData,enTankData,position) {
 
     if( tankType === 0){
         // 画出坦克主体
@@ -28,64 +28,41 @@ function drawTank(ctx,tankType,myTankData,enTanksData) {
         ctx.beginPath();
         ctx.strokeStyle = '#ee301e';
         ctx.lineWidth = 5;
-        ctx.moveTo(myTankData[1].startX,myTankData[1].startY);
-        ctx.lineTo(myTankData[1].endX,myTankData[1].endY);
+        ctx.moveTo(myTankData[1][0],myTankData[1][1]);
+        ctx.lineTo(myTankData[1][2],myTankData[1][3]);
         ctx.stroke();
         ctx.closePath();
     }else{
-        var position = 0; //判断位置变量，如果是 0 ，在地图的左上角产生坦克，反之，在右上角产生。
-        if(position){
-            // 定义 enemy 敌人的坦克的数据
-            var x = 655;
-            var y = 0;
-            var width = 40;
-            var height = 45;
-            // 定义 弹筒的数据
-            var startX = x + width/2;
-            var startY = height-5;
-            var endX = x + width/2;
-            var endY = height  + 5;
-
-            // 画出坦克主体
+        if(!position){
+            // 画出坦克主体  left
             ctx.save();
             ctx.beginPath();
             ctx.fillStyle = '#e6ee2a';
-            ctx.fillRect(x,y,width,height);
+            ctx.fillRect(enTankData[0].left.x,enTankData[0].left.y,enTankData[0].left.width,enTankData[0].left.height);
             ctx.closePath();
             // 画出炮筒
             ctx.save();
             ctx.beginPath();
             ctx.strokeStyle = '#000000';
             ctx.lineWidth = 5;
-            ctx.moveTo(startX,startY);
-            ctx.lineTo(endX,endY);
+            ctx.moveTo(enTankData[1][0][0],enTankData[1][0][1]);
+            ctx.lineTo(enTankData[1][0][2],enTankData[1][0][3]);
             ctx.stroke();
             ctx.closePath();
         } else{
-            // 定义 enemy 敌人的坦克的数据
-            var x = 5;
-            var y = 0;
-            var width = 40;
-            var height = 45;
-            // 定义 弹筒的数据
-            var startX = x + width/2;
-            var startY = height-5;
-            var endX = x + width/2;
-            var endY = height  + 5;
-
-            // 画出坦克主体
+            // 画出坦克主体  right
             ctx.save();
             ctx.beginPath();
             ctx.fillStyle = '#e6ee2a';
-            ctx.fillRect(x,y,width,height);
+            ctx.fillRect(enTankData[0].right.x,enTankData[0].right.y,enTankData[0].right.width,enTankData[0].right.height);
             ctx.closePath();
             // 画出炮筒
             ctx.save();
             ctx.beginPath();
             ctx.strokeStyle = '#000000';
             ctx.lineWidth = 5;
-            ctx.moveTo(startX,startY);
-            ctx.lineTo(endX,endY);
+            ctx.moveTo(enTankData[1][1][0],enTankData[1][1][1]);
+            ctx.lineTo(enTankData[1][1][2],enTankData[1][1][3]);
             ctx.stroke();
             ctx.closePath();
         }

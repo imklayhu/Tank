@@ -1,6 +1,8 @@
 /**
  * Created by clam on 17-3-14.
  */
+var mapPanel = document.getElementById('map');
+var ctx = mapPanel.getContext("2d");
 function getTankData() {
     var request = new XMLHttpRequest();
     request.open("get","data/data.json",true);
@@ -56,7 +58,6 @@ function getTankData() {
 
             // 调用绘制坦克的函数
             drawTank(ctx,tankType,myTankData,enTankData,position[0]);
-            console.log(response.enTankBody);
         }
     };
 }

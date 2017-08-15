@@ -16,7 +16,7 @@ function loadTank(ctx,number) {
 // 画出坦克
 function drawTank(ctx,tankType,myTankData,enTankData,position) {
 
-    if( tankType === 0){
+    if( tankType !== 0){
         // 画出坦克主体
         ctx.save();
         ctx.beginPath();
@@ -102,7 +102,7 @@ function drawEasyMap(ctx) {
     ctx.fillRect(325,450,50,50);
     ctx.closePath();
 
-    // draw enemy' Home
+    // draw enemy's Home
     // [1]
     ctx.save();
     ctx.beginPath();

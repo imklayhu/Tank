@@ -1,0 +1,29 @@
+{
+  "name": "rebuildtank",
+  "version": "1.0.0",
+  "description": "rebuild tank \u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dgame tank battle project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/Klay-Clam/Tank.git"
+  },
+  "keywords": [
+    "canvas",
+    "html5"
+  ],
+  "author": "Klay-Clam",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose":"^4.11.7",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "ejs": "~2.5.6",
+    "express": "~4.15.2",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  }
+}

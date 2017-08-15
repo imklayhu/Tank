@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 
 // 设置存储路径
-var DB_URL = 'mongodb://tanker:tanker@192.168.1.105:27017/tank';
+var DB_URL = 'mongodb://tanker:tanker@192.168.6.112:27017/tank';
 
 // 连接数据库
 mongoose.connect(DB_URL);

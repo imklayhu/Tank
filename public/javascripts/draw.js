@@ -22,13 +22,18 @@ function drawLine(ctx,lineData){
 // 封装绘制坦克的方法
 function drawTank(ctx,tankData){
     ctx.drawPolygon({
-        fillStyle: '#36c',
-        strokeStyle: '#f60',
-        strokeWidth: 2,
-        x: 100, y: 100,
-        radius: 20,
-        sides: 3,
-        concavity: -0.5,
-        rotate: 0
+        fillStyle: tankData.fillStyle,
+        strokeStyle: tankData.strokeStyle,
+        strokeWidth: tankData.strokeWidth,
+        x: tankData.x, y: tankData.y,
+        radius: tankData.radius,
+        sides: tankData.sides,
+        concavity: tankData.concavity,
+        rotate: tankData.rotate
       });
+}
+
+// 封装射击函数
+function shoot(){
+    
 }

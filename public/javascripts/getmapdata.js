@@ -7,17 +7,19 @@ $(function(){
         success:function(data){
             // 解析并渲染数据
             renderData(data);
+            // 调用 渲染坦克的 函数
+            ajaxGetTankData();
         },
         error:function(err){
             console.log(err);
         }
-    })
+    });
 });
 
 // 地图数据请求成功的回调函数
 function renderData(data){
     var mapData = data[0];
-    console.log(mapData);
+    //console.log(mapData);
     //首先将地图的背景画出来
     
     var $mapbground = $("#map");
@@ -47,7 +49,7 @@ function renderData(data){
     }
 
     // 在这里调用绘制我的坦克的方法
-    mytankData(mapData);
+    //mytankData(mapData);
     
 }
 
@@ -63,6 +65,26 @@ function mazeData(mapData){
 }
 
 // 解析坦克的数据
-function mytankData(mapData){
-    var fillStyle = mapData.my
+function transMytankData(mytankData){
+    var fillStyle = mytankData.fillStyle;
+    var strokeStyle = mytankData.strokeStyle;
+    var strokeWidth = mytankData.strokeWidth;
+    var x = mytankData.x;
+    var y = mytankData.y;
+    var radius = mytankData.radius;
+    var sides = mytankData.sides;
+    var concavity = mytankData.concavity;
+    var rotate = mytankData.rotate;
+
+    return {
+        fillStyle,
+        strokeStyle,
+        strokeWidth,
+        x,
+        y,
+        radius,
+        sides,
+        concavity,
+        rotate
+    };
 }

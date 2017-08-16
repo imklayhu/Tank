@@ -30,10 +30,11 @@ function drawTank(ctx,tankData){
         sides: tankData.sides,
         concavity: tankData.concavity,
         rotate: tankData.rotate
-      });
+    });
+    console.log(this);
 }
 
 // 封装射击函数
 function shoot(){
-    
+
 }

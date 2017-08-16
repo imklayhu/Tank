@@ -18,5 +18,7 @@ function renderTank(data){
     var mytankData = data[0];
     // console.log(data[0]);
     var tankData = transMytankData(mytankData);
+    
     drawTank($mapbground,tankData);
+
 }

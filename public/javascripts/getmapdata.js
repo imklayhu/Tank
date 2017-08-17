@@ -34,7 +34,7 @@ function renderData(data){
     for(var a_enhome of enhomeSize){
         drawRectangle($mapbground,a_enhome);
     }
-    // 在这里调用绘制迷宫的地图
+    // 在这里调用绘制迷宫的函数
     // 调用解析数据函数
     mazeData(mapData);
     for(let i = 0;i < mazeData(mapData).startX.length;i++){

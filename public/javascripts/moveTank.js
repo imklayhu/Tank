@@ -8,7 +8,7 @@ function createTankMoveObject(ctx,tankData){
 
     m.ctx = ctx; // canvas 对象
     m.tankData = tankData; // 坦克的数据
-    m.speed = 3;
+    m.speed = 2;
     // 向上移动的方法
     m.moveUp = function(){
         console.log("move up");
@@ -17,22 +17,29 @@ function createTankMoveObject(ctx,tankData){
         this.tankData.y = this.tankData.y - this.speed;
         this.tankData.rotate = 0;
         console.log(this.tankData.y);
+        this.ctx.setLayer('moving',{
+            visible: false
+        }).drawLayers();
+        
         drawTank(this.ctx,this.tankData);
-        // this.ctx.setLayer('moving',{
-        //     visible: false
-        // }).drawLayers();
     };
     // 向右移动的方法
     m.moveRight = function(){
         console.log("move right");
+        this.tankData.rotate = 90;
+        drawTank(this.ctx,this.tankData)
     }
     // 向下移动的方法
     m.moveDown = function(){
         console.log("move down");
+        this.tankData.rotate = 180;
+        drawTank(this.ctx,this.tankData)
     }
     // 向左移动的方法
     m.moveLeft = function(){
         console.log("move left");
+        this.tankData.rotate = 270;
+        drawTank(this.ctx,this.tankData)
     }
     return m;
 }

@@ -1,11 +1,11 @@
-function ajaxGetTankData(){
+function ajaxGetTankData(mapData){
     $.ajax({
         url:'/getTankData',
         method: 'GET',
         dataType:'json',
         success:function(data){
             // 解析并渲染数据
-            renderTank(data);
+            renderTank(data,mapData);
         },
         error:function(err){
             console.log(err);
@@ -13,7 +13,7 @@ function ajaxGetTankData(){
     })
 }
 
-function renderTank(data){
+function renderTank(data,mapData){
     var $mapbground = $("#map");
     var mytankData = data[0];
     // console.log(data[0]);
@@ -23,7 +23,7 @@ function renderTank(data){
     drawTank($mapbground,tankData);
     
     // 实例化坦克移动对象
-    var tankMoveIntity = createTankMoveObject($mapbground,tankData);
+    var tankMoveIntity = createTankMoveObject($mapbground,tankData,mapData);
     // 监听键盘事件动作，判断行动方向
     listenKeyboard(tankMoveIntity);
 }

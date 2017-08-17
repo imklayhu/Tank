@@ -8,7 +8,7 @@ $(function(){
             // 解析并渲染数据
             renderData(data);
             // 调用 渲染坦克的 函数
-            ajaxGetTankData();
+            ajaxGetTankData(data);
         },
         error:function(err){
             console.log(err);
@@ -19,38 +19,16 @@ $(function(){
 // 地图数据请求成功的回调函数
 function renderData(data){
     var mapData = data[0];
-    //console.log(mapData);
-    //首先将地图的背景画出来
     
     var $mapbground = $("#map");
-    // 在这里调用 绘制map背景的方法
-    var mapsize = mapData.mapsize;
-    drawRectangle($mapbground,mapsize);
+    drawBgMap($mapbground,mapData)
     // 在这里绘制tank home
-    var myhomeSize = mapData.mytankhome;
-    var enhomeSize = mapData.entankhome;
-    drawRectangle($mapbground,myhomeSize);
-    
-    for(var a_enhome of enhomeSize){
-        drawRectangle($mapbground,a_enhome);
-    }
+    drawTankHome($mapbground,mapData);
     // 在这里调用绘制迷宫的函数
-    // 调用解析数据函数
-    mazeData(mapData);
-    for(let i = 0;i < mazeData(mapData).startX.length;i++){
-        var lineData = {
-            strokeStyle: mazeData(mapData).strokeStyle,
-            x1: mazeData(mapData).startX[i],
-            y1: mazeData(mapData).startY[i],
-            x2: mazeData(mapData).endX[i],
-            y2: mazeData(mapData).endY[i]
-        };
-        drawLine($mapbground,lineData);
-    }
-    
+    drawMaze($mapbground,mapData);
 }
 
-// 迷宫的数据的解析
+// 解析迷宫的数据
 function mazeData(mapData){
     var startX = mapData.startx;
     var startY = mapData.starty;
@@ -84,4 +62,35 @@ function transMytankData(mytankData){
         concavity,
         rotate
     };
+}
+
+// 封装绘制地图背景的方法
+function drawBgMap(ctx,mapData){
+    var mapsize = mapData.mapsize;
+    drawRectangle(ctx,mapsize);
+}
+
+// 封装绘制敌我双方home的函数
+function drawTankHome(ctx,mapData){
+    var myhomeSize = mapData.mytankhome;
+    var enhomeSize = mapData.entankhome;
+    drawRectangle(ctx,myhomeSize);
+    
+    for(var a_enhome of enhomeSize){
+        drawRectangle(ctx,a_enhome);
+    }
+}
+// 封装绘制迷宫的函数
+function drawMaze(ctx,mapData){
+    mazeData(mapData);
+    for(let i = 0;i < mazeData(mapData).startX.length;i++){
+        var lineData = {
+            strokeStyle: mazeData(mapData).strokeStyle,
+            x1: mazeData(mapData).startX[i],
+            y1: mazeData(mapData).startY[i],
+            x2: mazeData(mapData).endX[i],
+            y2: mazeData(mapData).endY[i]
+        };
+        drawLine(ctx,lineData);
+    }
 }

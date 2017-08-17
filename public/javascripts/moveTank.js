@@ -3,7 +3,7 @@
 //         console.log("move up");
 //     }
 // }
-function createTankMoveObject(ctx,tankData){
+function createTankMoveObject(ctx,tankData,mapData){
     var m = new Object();
 
     m.ctx = ctx; // canvas 对象
@@ -13,33 +13,51 @@ function createTankMoveObject(ctx,tankData){
     m.moveUp = function(){
         console.log("move up");
         //console.log(this.speed);
-        var oldTankData = this.tankData;
+        // var oldTankData = this.tankData;
         this.tankData.y = this.tankData.y - this.speed;
         this.tankData.rotate = 0;
         console.log(this.tankData.y);
         this.ctx.setLayer('moving',{
             visible: false
         }).drawLayers();
-        
+        renderData(mapData);
         drawTank(this.ctx,this.tankData);
     };
     // 向右移动的方法
     m.moveRight = function(){
         console.log("move right");
+        this.tankData.x = this.tankData.x + this.speed;
         this.tankData.rotate = 90;
-        drawTank(this.ctx,this.tankData)
+
+        this.ctx.setLayer('moving',{
+            visible: false
+        }).drawLayers();
+        renderData(mapData);
+        drawTank(this.ctx,this.tankData);
     }
     // 向下移动的方法
     m.moveDown = function(){
         console.log("move down");
+        this.tankData.y = this.tankData.y + this.speed;
         this.tankData.rotate = 180;
-        drawTank(this.ctx,this.tankData)
+
+        this.ctx.setLayer('moving',{
+            visible: false
+        }).drawLayers();
+        renderData(mapData);
+        drawTank(this.ctx,this.tankData);
     }
     // 向左移动的方法
     m.moveLeft = function(){
         console.log("move left");
+        this.tankData.x = this.tankData.x - this.speed;
         this.tankData.rotate = 270;
-        drawTank(this.ctx,this.tankData)
+
+        this.ctx.setLayer('moving',{
+            visible: false
+        }).drawLayers();
+        renderData(mapData);
+        drawTank(this.ctx,this.tankData);
     }
     return m;
 }

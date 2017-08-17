@@ -5,42 +5,77 @@
 // }
 function createTankMoveObject(ctx,tankData,mapData){
     var m = new Object();
-
+    //console.log(mapData["0"].mapsize.width);
+    // m.mapData = mapData;
+    console.log(m.mapData);
     m.ctx = ctx; // canvas 对象
     m.tankData = tankData; // 坦克的数据
-    m.speed = 2;
+    m.speed = 4;
     // 向上移动的方法
     m.moveUp = function(){
         console.log("move up");
-        //console.log(this.speed);
-        // var oldTankData = this.tankData;
-        this.tankData.y = this.tankData.y - this.speed;
+
+        // 方向向上
         this.tankData.rotate = 0;
-        console.log(this.tankData.y);
-        this.ctx.setLayer('moving',{
-            visible: false
-        }).drawLayers();
-        renderData(mapData);
-        drawTank(this.ctx,this.tankData);
+        // 地图边缘检测
+        if(this.tankData.y - this.tankData.radius < this.tankData.radius){
+            this.tankData.y = this.tankData.radius;
+            console.log(this.tankData.y);
+            // 坦克移动的时候重绘坦克和地图
+            this.ctx.setLayer('moving', {
+                visible: false
+            }).drawLayers();
+            renderData(mapData);
+            drawTank(this.ctx, this.tankData);
+        }else{
+            this.tankData.y = this.tankData.y - this.speed;
+            console.log(this.tankData.y);
+            // 坦克移动的时候重绘坦克和地图
+            this.ctx.setLayer('moving',{
+                visible: false
+            }).drawLayers();
+            renderData(mapData);
+            drawTank(this.ctx,this.tankData);
+        }
     };
     // 向右移动的方法
     m.moveRight = function(){
         console.log("move right");
-        this.tankData.x = this.tankData.x + this.speed;
         this.tankData.rotate = 90;
 
-        this.ctx.setLayer('moving',{
-            visible: false
-        }).drawLayers();
-        renderData(mapData);
-        drawTank(this.ctx,this.tankData);
+        // 地图边缘检测
+        if(this.tankData.x - this.tankData.radius < this.mapData["0"].mapsize.width){
+            this.tankData.x = mapData.mapSize.width;
+            console.log(this.tankData.x);
+            // 坦克移动的时候重绘坦克和地图
+            this.ctx.setLayer('moving', {
+                visible: false
+            }).drawLayers();
+            renderData(mapData);
+            drawTank(this.ctx, this.tankData);
+        }else{
+            this.tankData.x = this.tankData.x + this.speed;
+            // 坦克移动的时候重绘坦克和地图
+            this.ctx.setLayer('moving',{
+                visible: false
+            }).drawLayers();
+            renderData(mapData);
+            drawTank(this.ctx,this.tankData);
+        }
     }
     // 向下移动的方法
     m.moveDown = function(){
         console.log("move down");
+        // 边缘检测
+        if(this.tankData.y ){ 
+
+        }
+
         this.tankData.y = this.tankData.y + this.speed;
         this.tankData.rotate = 180;
 
+
+        // 坦克移动的时候重绘坦克和地图
         this.ctx.setLayer('moving',{
             visible: false
         }).drawLayers();
@@ -53,6 +88,8 @@ function createTankMoveObject(ctx,tankData,mapData){
         this.tankData.x = this.tankData.x - this.speed;
         this.tankData.rotate = 270;
 
+
+        // 坦克移动的时候重绘坦克和地图
         this.ctx.setLayer('moving',{
             visible: false
         }).drawLayers();

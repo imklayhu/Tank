@@ -28,6 +28,21 @@ function renderData(data){
     drawMaze($mapbground,mapData);
 }
 
+// 封装绘制迷宫的函数
+function drawMaze(ctx,mapData){
+    mazeData(mapData);
+    for(let i = 0;i < mazeData(mapData).startX.length;i++){
+        var lineData = {
+            strokeStyle: mazeData(mapData).strokeStyle,
+            x1: mazeData(mapData).startX[i],
+            y1: mazeData(mapData).startY[i],
+            x2: mazeData(mapData).endX[i],
+            y2: mazeData(mapData).endY[i]
+        };
+        drawLine(ctx,lineData);
+    }
+}
+
 // 解析迷宫的数据
 function mazeData(mapData){
     var startX = mapData.startx;
@@ -78,19 +93,5 @@ function drawTankHome(ctx,mapData){
     
     for(var a_enhome of enhomeSize){
         drawRectangle(ctx,a_enhome);
-    }
-}
-// 封装绘制迷宫的函数
-function drawMaze(ctx,mapData){
-    mazeData(mapData);
-    for(let i = 0;i < mazeData(mapData).startX.length;i++){
-        var lineData = {
-            strokeStyle: mazeData(mapData).strokeStyle,
-            x1: mazeData(mapData).startX[i],
-            y1: mazeData(mapData).startY[i],
-            x2: mazeData(mapData).endX[i],
-            y2: mazeData(mapData).endY[i]
-        };
-        drawLine(ctx,lineData);
     }
 }

@@ -47,9 +47,6 @@ function renderData(data){
         };
         drawLine($mapbground,lineData);
     }
-
-    // 在这里调用绘制我的坦克的方法
-    //mytankData(mapData);
     
 }
 

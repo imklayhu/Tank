@@ -4250,6 +4250,20 @@ $.fn.setPixels = function setPixels(args) {
 	}
 	return $canvases;
 };
+/** 
+ * @ 2017.08.18
+ * @ author: Klay-Clam
+ * @ 重写 getImageData() 
+ * @ 这是一个测试
+*/
+$.fn.getImageData = function getImageData(x,y,width,height){
+	var $canvases = this,
+		canvas, e, ctx, canvasData,
+		params,
+		px,
+		imgData, pixelData, i, len;
+
+}
 
 // Retrieves canvas image as data URL
 $.fn.getCanvasImage = function getCanvasImage(type, quality) {

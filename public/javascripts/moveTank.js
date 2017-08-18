@@ -2,7 +2,7 @@
 //     this.moveUp = function(){
 //         console.log("move up");
 //     }
-// }
+// } 
 function createTankMoveObject(ctx,tankData,mapData){
     var m = new Object();
     //console.log(mapData["0"].mapsize.width);
@@ -17,7 +17,13 @@ function createTankMoveObject(ctx,tankData,mapData){
 
         // 方向向上
         this.tankData.rotate = 0;
-        // 地图边缘检测
+        /**
+         * @ 获取当前朝向 尖部的颜色 这是一个测试
+         * @ 查看 jcanvas 的源码，查看是否存在 对getImageData()方法的API
+         */
+        var pointColor = this.ctx.prototype();
+        console.log(pointColor);
+        // 地图边缘检测 
         if(this.tankData.y - this.tankData.radius < this.tankData.radius){
             this.tankData.y = this.tankData.radius;
             console.log(this.tankData.x,this.tankData.y);

@@ -27,3 +27,4 @@ function renderTank(data,mapData){
     // 监听键盘事件动作，判断行动方向
     listenKeyboard(tankMoveIntity);
 }
+ 

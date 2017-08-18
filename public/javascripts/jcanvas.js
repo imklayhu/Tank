@@ -4254,15 +4254,19 @@ $.fn.setPixels = function setPixels(args) {
  * @ 2017.08.18
  * @ author: Klay-Clam
  * @ 重写 getImageData() 
+ * @ params pixelSeat:需要返回颜色的位置的数据对象，包括:{x,y,width,height}
  * @ 这是一个测试
 */
-$.fn.getImageData = function getImageData(x,y,width,height){
+$.fn._getImageData = function _getImageData(pixelData){
 	var $canvases = this,
 		canvas, e, ctx, canvasData,
 		params,
 		px,
-		imgData, pixelData, i, len;
+		imgData, i, len;
+	var pixelData = pixelData;
+	ctx.getImageData(pixelData.x,pixelData.y,pixelData.width,)
 
+	return _rgba;
 }
 
 // Retrieves canvas image as data URL

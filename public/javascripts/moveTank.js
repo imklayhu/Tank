@@ -7,6 +7,7 @@ function createTankMoveObject(ctx,tankData,mapData){
     var m = new Object();
     //console.log(mapData["0"].mapsize.width);
     // m.mapData = mapData;
+    
     //console.log(m.mapData);
     m.ctx = ctx; // canvas 对象
     m.tankData = tankData; // 坦克的数据
@@ -14,16 +15,9 @@ function createTankMoveObject(ctx,tankData,mapData){
     // 向上移动的方法
     m.moveUp = function(){
         console.log("move up");
-
         // 方向向上
         this.tankData.rotate = 0;
-        /**
-         * @ 获取当前朝向 尖部的颜色 这是一个测试
-         * @ 查看 jcanvas 的源码，查看是否存在 对getImageData()方法的API
-         */
-        var pointColor = this.ctx.prototype();
-        console.log(pointColor);
-        // 地图边缘检测 
+        // 地图边缘检测 以及地图的墙壁检测
         if(this.tankData.y - this.tankData.radius < this.tankData.radius){
             this.tankData.y = this.tankData.radius;
             console.log(this.tankData.x,this.tankData.y);
@@ -34,8 +28,12 @@ function createTankMoveObject(ctx,tankData,mapData){
             renderData(mapData);
             drawTank(this.ctx, this.tankData);
         }else{
+            // 墙壁检测
+            //if(getPixelRgba(this.tankData.x,this.tankData.y-this.tankData.radius-3) != "rgba(238,238,238,1)")
             this.tankData.y = this.tankData.y - this.speed;
             console.log(this.tankData.x,this.tankData.y);
+            var rgba = getPixelRgba(this.tankData.x,this.tankData.y-this.tankData.radius-3);
+            console.log("rgba: "+rgba);
             // 坦克移动的时候重绘坦克和地图
             this.ctx.setLayer('moving',{
                 visible: false
@@ -43,6 +41,7 @@ function createTankMoveObject(ctx,tankData,mapData){
             renderData(mapData);
             drawTank(this.ctx,this.tankData);
         }
+        
     };
     // 向右移动的方法
     m.moveRight = function(){
@@ -145,4 +144,18 @@ function listenKeyboard(tankMoveIntity){
                 return;
         }
     })
+}
+
+
+// 获取像素点的rgba值
+function getPixelRgba(x,y,width=2,height=2){
+    // 获取画布
+    var canvasObj = $("#map")[0].getContext('2d');
+
+    //
+    var pixelData = canvasObj.getImageData(x,y,width,height).data;
+    var rgba = 'rgba(' + pixelData[0] + ',' + pixelData[1] +
+                ',' + pixelData[2] + ',' + (pixelData[3] / 255) + ')';
+
+    return rgba;
 }

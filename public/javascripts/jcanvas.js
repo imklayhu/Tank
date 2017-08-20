@@ -4257,17 +4257,17 @@ $.fn.setPixels = function setPixels(args) {
  * @ params pixelSeat:需要返回颜色的位置的数据对象，包括:{x,y,width,height}
  * @ 这是一个测试
 */
-$.fn._getImageData = function _getImageData(pixelData){
-	var $canvases = this,
-		canvas, e, ctx, canvasData,
-		params,
-		px,
-		imgData, i, len;
-	var pixelData = pixelData;
-	ctx.getImageData(pixelData.x,pixelData.y,pixelData.width,)
+// $.fn._getImageData = function _getImageData(pixelData){
+// 	var $canvases = this,
+// 		canvas, e, ctx, canvasData,
+// 		params,
+// 		px,
+// 		imgData, i, len;
+// 	var pixelData = pixelData;
+// 	ctx.getImageData(pixelData.x,pixelData.y,pixelData.width,)
 
-	return _rgba;
-}
+// 	return _rgba;
+// }
 
 // Retrieves canvas image as data URL
 $.fn.getCanvasImage = function getCanvasImage(type, quality) {

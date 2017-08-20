@@ -11,7 +11,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
     //console.log(m.mapData);
     m.ctx = ctx; // canvas 对象
     m.tankData = tankData; // 坦克的数据
-    m.speed = 4;
+    m.speed = 2;
     // 向上移动的方法
     m.moveUp = function () {
         console.log("move up");
@@ -30,7 +30,22 @@ function createTankMoveObject(ctx, tankData, mapData) {
             drawTank(this.ctx, this.tankData);
         } else {
             // 墙壁检测
-            if (getPixelRgba(this.tankData.x, this.tankData.y - this.tankData.radius - 4) == "rgba(102,102,102,1)") {
+            // 判断语句，Boolean
+            var Analyzing = (getPixelRgba(this.tankData.x, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)")||
+                            (getPixelRgba(this.tankData.x - this.tankData.radius, this.tankData.y - this.tankData.radiu) == "rgba(102,102,102,1)")||
+                            (getPixelRgba(this.tankData.x + this.tankData.radius, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)") ||
+                            (getPixelRgba(this.tankData.x - this.tankData.radius/2, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)") ||
+                            (getPixelRgba(this.tankData.x + this.tankData.radius/2, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)")||
+                            (getPixelRgba(this.tankData.x - this.tankData.radius/4, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)") ||
+                            (getPixelRgba(this.tankData.x + this.tankData.radius/4, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)")||
+                            (getPixelRgba(this.tankData.x - this.tankData.radius/6, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)") ||
+                            (getPixelRgba(this.tankData.x + this.tankData.radius/6, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)")||
+                            (getPixelRgba(this.tankData.x - this.tankData.radius/8, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)") ||
+                            (getPixelRgba(this.tankData.x + this.tankData.radius/8, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)")||
+                            (getPixelRgba(this.tankData.x - this.tankData.radius/10, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)") ||
+                            (getPixelRgba(this.tankData.x + this.tankData.radius/10, this.tankData.y - this.tankData.radius) == "rgba(102,102,102,1)");
+            console.log(Analyzing);
+            if (Analyzing) {
                 this.tankData.y = this.tankData.y;
                 console.log("遇到墙壁：" + this.tankData.x, this.tankData.y);
 
@@ -196,10 +211,10 @@ function listenKeyboard(tankMoveIntity) {
 
 
 // 获取像素点的rgba值
-function getPixelRgba(x, y, width = 30, height = 30) {
+function getPixelRgba(x, y, width = 5, height = 5) {
     // 获取画布
     var canvasObj = $("#map")[0].getContext('2d');
-
+    // console.log("width,height:" + width + ",," + height )
     //
     var pixelData = canvasObj.getImageData(x, y, width, height).data;
     var rgba = 'rgba(' + pixelData[0] + ',' + pixelData[1] +

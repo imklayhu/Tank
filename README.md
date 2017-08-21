@@ -22,3 +22,8 @@
 ```
 > node ./bin/www
 ```
+
+### Logs:
+> 2018.08.21 截图
+
+![2018.08.21 截图](https://raw.githubusercontent.com/Klay-Clam/Tank/master/public/images/%E6%88%AA%E5%9B%BE.jpg)

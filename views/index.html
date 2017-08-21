@@ -19,7 +19,10 @@
         </canvas>
     </div>
     <div>
-        <audio src="https://raw.githubusercontent.com/Klay-Clam/Tank/master/public/backgroundmusics/bgm.mp3" autoplay loop></audio>
+        <audio id="audio" src="https://raw.githubusercontent.com/Klay-Clam/Tank/master/public/backgroundmusics/bgm.mp3" autoplay loop></audio>
     </div>
 </body>
+<script>
+    $("#audio")[0].volume = 0.1;
+</script>
 </html>

@@ -85,7 +85,14 @@ function createTankMoveObject(ctx, tankData, mapData) {
             renderData(mapData);
             drawTank(this.ctx, this.tankData);
         } else {
-            if (getPixelRgba(this.tankData.x + this.tankData.radius + 4, this.tankData.y) == "rgba(102,102,102,1)") {
+            // 判断语句，Boolean
+            var Analyzing = (getPixelRgba(this.tankData.x + this.tankData.radius + 4, this.tankData.y) == "rgba(102,102,102,1)") ||
+                (getPixelRgba(this.tankData.x + this.tankData.radius, this.tankData.y - this.tankData.radius/4) == "rgba(102,102,102,1)") ||
+                (getPixelRgba(this.tankData.x + this.tankData.radius, this.tankData.y + this.tankData.radius/4) == "rgba(102,102,102,1)") ||
+                (getPixelRgba(this.tankData.x + this.tankData.radius, this.tankData.y - this.tankData.radius/6) == "rgba(102,102,102,1)") ||
+                (getPixelRgba(this.tankData.x + this.tankData.radius, this.tankData.y + this.tankData.radius/6) == "rgba(102,102,102,1)")  ;
+            console.log(Analyzing);
+            if (Analyzing) {
                 this.tankData.x = this.tankData.x;
                 console.log("遇到墙壁：" + this.tankData.x, this.tankData.y);
 

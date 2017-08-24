@@ -48,6 +48,11 @@ function Shoot(ctx,bulletStatus){
 
     }
 }
+/**
+ * 还未封装之前的向上射击的事件
+ * @param {*} ctx 
+ * @param {*} bulletStatus 
+ */
 function shootUp(ctx,bulletStatus){
     console.log(ctx);
     console.log(bulletStatus);

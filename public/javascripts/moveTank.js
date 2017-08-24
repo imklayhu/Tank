@@ -211,6 +211,33 @@ function createTankMoveObject(ctx, tankData, mapData) {
             }
         }
     }
+    // 坦克射击
+    m.shoot = function() {
+        switch (this.tankData.rotate){
+            case 0:
+                // console.log("shoot up..");
+                var bulletStatus = {
+                    strokeStyle: 'red',
+                    x1:this.tankData.x,
+                    y1:this.tankData.y - this.tankData.radius -2,
+                    x2:this.tankData.x,
+                    y2:this.tankData.y - this.tankData.radius - 8
+                }
+                shootUp(this.ctx,bulletStatus);
+                break;
+            case 90:
+                // console.log("shoot right..");
+                break;
+            case 180:
+                // console.log("shoot down..");
+                break;
+            case 270:
+                // console.log("shoot left..");
+                break;
+            default:
+                return;
+        }
+    }
     return m;
 }
 
@@ -232,6 +259,8 @@ function listenKeyboard(tankMoveIntity) {
             case 115: // DOWN
                 tankMoveIntity.moveDown();
                 break;
+            case 32: // SHOOT
+                tankMoveIntity.shoot();
             default:
                 return;
         }

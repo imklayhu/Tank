@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    font-family:"ruibocb9ae48621a24c";
 }
 .container{
     width: 100%;
@@ -9,4 +10,11 @@
 }
 #map{
     display: inline;
+}
+.tips{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    text-align: left;
 }

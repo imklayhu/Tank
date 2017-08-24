@@ -33,8 +33,42 @@ function drawTank(ctx,tankData){
     });
     console.log(this);
 }
+/**
+ * 封装Shooting对象
+ * @param {*canvas#map} ctx 
+ * @param {*bullet satus} bulletStatus 
+ */
+function Shoot(ctx,bulletStatus){
+    var S = new Object();
 
-// 封装射击函数
-function shoot(){
+    S.ctx = ctx;
+    S.bulletStatus = bulletStatus;
 
+    S.shootUp = function(){
+
+    }
+}
+function shootUp(ctx,bulletStatus){
+    console.log(ctx);
+    console.log(bulletStatus);
+    ctx.drawLine({
+        strokeStyle: bulletStatus.strokeStyle,
+        strokeWidth: 4,
+        x1:bulletStatus.x1,y1:bulletStatus.y1,
+        x2:bulletStatus.x2,y2:bulletStatus.y2
+    });
+}
+
+function bulletMove(ctx,rotate,bulletStatus,bulletSpeed = 6){
+    switch (rotate){
+        case 0:
+            shootUp(ctx,bulletStatus);
+            break;
+        case 90:
+            break;
+        case 180:
+            break;
+        case 270:
+            break;
+    }
 }

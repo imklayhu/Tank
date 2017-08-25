@@ -31,38 +31,79 @@ function drawTank(ctx,tankData){
         concavity: tankData.concavity,
         rotate: tankData.rotate
     });
-    console.log(this);
+    // console.log(this);
 }
 /**
  * 封装Shooting对象
  * @param {*canvas#map} ctx 
  * @param {*bullet satus} bulletStatus 
  */
-function Shoot(ctx,bulletStatus){
+// function Shoot(ctx,bulletStatus){
+function Shoot(ctx,bulletStatus,mapData,tankData){
     var S = new Object();
-
+    S.bulletSpeed = 20;
     S.ctx = ctx;
     S.bulletStatus = bulletStatus;
+    // S.mapdata = mapData; 
+    //S.tankData = tankData;
 
     S.shootUp = function(){
+        // console.log(this.ctx);
+        // console.log(this.bulletStatus);
+
+        // if(getPixelRgba(this.bulletStatus.x2,this.bulletStatus.y2 == "rgba(102,102,102,1)")){
+
+        // }
+        if(getPixelRgba(this.bulletStatus.x2,this.bulletStatus.y2) == "rgba(238,238,238,1)"){
+            
+            setInterval(() => {
+                this.bulletStatus.y1 -= this.bulletSpeed;
+                this.bulletStatus.y2 -= this.bulletSpeed;
+
+                this.ctx.setLayer('shooting', {
+                    visible: false
+                }).drawLayers();
+
+                renderData(mapData);
+                drawTank(this.ctx, tankData);
+                ctx.drawLine({
+                    strokeStyle: bulletStatus.strokeStyle,
+                    strokeWidth: 4,
+                    x1:bulletStatus.x1,y1:bulletStatus.y1,
+                    x2:bulletStatus.x2,y2:bulletStatus.y2
+                });
+            },800);
+        }
+    }
+
+    S.shootRight = function () {
 
     }
+
+    S.shootDown = function () {
+
+    }
+
+    S.shootLeft = function () {
+
+    }
+    return S;
 }
 /**
  * 还未封装之前的向上射击的事件
  * @param {*} ctx 
  * @param {*} bulletStatus 
  */
-function shootUp(ctx,bulletStatus){
-    console.log(ctx);
-    console.log(bulletStatus);
-    ctx.drawLine({
-        strokeStyle: bulletStatus.strokeStyle,
-        strokeWidth: 4,
-        x1:bulletStatus.x1,y1:bulletStatus.y1,
-        x2:bulletStatus.x2,y2:bulletStatus.y2
-    });
-}
+// function shootUp(ctx,bulletStatus){
+//     console.log(ctx);
+//     console.log(bulletStatus);
+//     ctx.drawLine({
+//         strokeStyle: bulletStatus.strokeStyle,
+//         strokeWidth: 4,
+//         x1:bulletStatus.x1,y1:bulletStatus.y1,
+//         x2:bulletStatus.x2,y2:bulletStatus.y2
+//     });
+// }
 
 function bulletMove(ctx,rotate,bulletStatus,bulletSpeed = 6){
     switch (rotate){

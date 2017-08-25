@@ -11,6 +11,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
     //console.log(m.mapData);
     m.ctx = ctx; // canvas 对象
     m.tankData = tankData; // 坦克的数据
+    m.mapData = mapData;
     m.speed = 2;
     // 向上移动的方法
     m.moveUp = function () {
@@ -26,7 +27,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
             this.ctx.setLayer('moving', {
                 visible: false
             }).drawLayers();
-            renderData(mapData);
+            renderData(this.mapData);
             drawTank(this.ctx, this.tankData);
         } else {
             // 墙壁检测
@@ -53,7 +54,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
             } else {
                 this.tankData.y = this.tankData.y - this.speed;
@@ -64,7 +65,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
             }
         }
@@ -82,7 +83,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
             this.ctx.setLayer('moving', {
                 visible: false
             }).drawLayers();
-            renderData(mapData);
+            renderData(this.mapData);
             drawTank(this.ctx, this.tankData);
         } else {
             // 判断语句，Boolean
@@ -100,7 +101,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
             } else {
                 this.tankData.x = this.tankData.x + this.speed;
@@ -109,7 +110,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
             }
         }
@@ -127,7 +128,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
             this.ctx.setLayer('moving', {
                 visible: false
             }).drawLayers();
-            renderData(mapData);
+            renderData(this.mapData);
             drawTank(this.ctx, this.tankData);
         } else {
             // 
@@ -153,7 +154,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
             }else{
                 this.tankData.y = this.tankData.y + this.speed;
@@ -162,7 +163,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
             }
         }
@@ -178,7 +179,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
             this.ctx.setLayer('moving', {
                 visible: false
             }).drawLayers();
-            renderData(mapData);
+            renderData(this.mapData);
             drawTank(this.ctx, this.tankData);
         } else {
             // 判断语句，Boolean
@@ -196,7 +197,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
 
             }else{
@@ -206,7 +207,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 this.ctx.setLayer('moving', {
                     visible: false
                 }).drawLayers();
-                renderData(mapData);
+                renderData(this.mapData);
                 drawTank(this.ctx, this.tankData);
             }
         }
@@ -222,8 +223,18 @@ function createTankMoveObject(ctx, tankData, mapData) {
                     y1:this.tankData.y - this.tankData.radius -2,
                     x2:this.tankData.x,
                     y2:this.tankData.y - this.tankData.radius - 8
-                }
-                shootUp(this.ctx,bulletStatus);
+                };
+                const tankData = this.tankData;
+                const mapData = this.mapData;
+                var shoot = new Shoot(this.ctx,bulletStatus,mapData,tankData);
+                shoot.shootUp();
+                // shootUp(this.ctx,bulletStatus);
+                // this.ctx.setLayer('moving', {
+                //     visible: false
+                // }).drawLayers();
+                // renderData(mapData);
+                // drawTank(this.ctx, this.tankData);
+                // shoot.shootUp();
                 break;
             case 90:
                 // console.log("shoot right..");
@@ -266,7 +277,6 @@ function listenKeyboard(tankMoveIntity) {
         }
     })
 }
-
 
 // 获取像素点的rgba值
 function getPixelRgba(x, y, width = 5, height = 5) {

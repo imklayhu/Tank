@@ -224,26 +224,52 @@ function createTankMoveObject(ctx, tankData, mapData) {
                     x2:this.tankData.x,
                     y2:this.tankData.y - this.tankData.radius - 8
                 };
-                const tankData = this.tankData;
-                const mapData = this.mapData;
+                var tankData = this.tankData;
+                var mapData = this.mapData;
                 var shoot = new Shoot(this.ctx,bulletStatus,mapData,tankData);
                 shoot.shootUp();
-                // shootUp(this.ctx,bulletStatus);
-                // this.ctx.setLayer('moving', {
-                //     visible: false
-                // }).drawLayers();
-                // renderData(mapData);
-                // drawTank(this.ctx, this.tankData);
-                // shoot.shootUp();
                 break;
             case 90:
                 // console.log("shoot right..");
+                var bulletStatus = {
+                    strokeStyle: 'red',
+                    x1:this.tankData.x + this.tankData.radius -2,
+                    y1:this.tankData.y,
+                    x2:this.tankData.x + this.tankData.radius + 8,
+                    y2:this.tankData.y
+                };
+                var tankData = this.tankData;
+                var mapData = this.mapData;
+                var shoot = new Shoot(this.ctx,bulletStatus,mapData,tankData);
+                shoot.shootRight();
                 break;
             case 180:
                 // console.log("shoot down..");
+                var bulletStatus = {
+                    strokeStyle: 'red',
+                    x1:this.tankData.x,
+                    y1:this.tankData.y + this.tankData.radius + 2,
+                    x2:this.tankData.x,
+                    y2:this.tankData.y + this.tankData.radius + 8
+                };
+                var tankData = this.tankData;
+                var mapData = this.mapData;
+                var shoot = new Shoot(this.ctx,bulletStatus,mapData,tankData);
+                shoot.shootDown();
                 break;
             case 270:
                 // console.log("shoot left..");
+                var bulletStatus = {
+                    strokeStyle: 'red',
+                    x1:this.tankData.x - this.tankData.radius - 2,
+                    y1:this.tankData.y,
+                    x2:this.tankData.x - this.tankData.radius - 8,
+                    y2:this.tankData.y
+                };
+                var tankData = this.tankData;
+                var mapData = this.mapData;
+                var shoot = new Shoot(this.ctx,bulletStatus,mapData,tankData);
+                shoot.shootLeft();
                 break;
             default:
                 return;

@@ -9,6 +9,9 @@ $(function(){
             renderData(data);
             // 调用 渲染坦克的 函数
             ajaxGetTankData(data);
+
+            // 获取enTank数据
+            ajaxGetEntankData(data);
         },
         error:function(err){
             console.log(err);

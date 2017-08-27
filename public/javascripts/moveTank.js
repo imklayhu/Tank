@@ -233,7 +233,7 @@ function createTankMoveObject(ctx, tankData, mapData) {
                 // console.log("shoot right..");
                 var bulletStatus = {
                     strokeStyle: 'red',
-                    x1:this.tankData.x + this.tankData.radius -2,
+                    x1:this.tankData.x + this.tankData.radius + 2,
                     y1:this.tankData.y,
                     x2:this.tankData.x + this.tankData.radius + 8,
                     y2:this.tankData.y

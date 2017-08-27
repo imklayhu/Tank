@@ -67,7 +67,7 @@ function Shoot(ctx,bulletStatus,mapData,tankData){
             },800);
         }
     }
-
+ 
     S.shootRight = function () {
         if(getPixelRgba(this.bulletStatus.x2,this.bulletStatus.y2) == "rgba(238,238,238,1)"){
             

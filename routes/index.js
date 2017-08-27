@@ -3,6 +3,7 @@ var router = express.Router();
 
 var easymapCollection = require('../models/database/map.easy');
 var mytankCollection = require('../models/database/mytank');
+var entankCollection = require('../models/database/entank');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
@@ -31,5 +32,16 @@ router.get('/getTankData',function(req,res,next){
   })
 });
 
+// GET enTank Data
+router.get('/getenTankData',function(req,res,next){
+  entankCollection.find({},function(err,result){
+    if(err){
+      console.log(err)
+    }else{
+      console.log("get enTank data");
+      res.send(result);
+    }
+  })
+})
 
 module.exports = router;
